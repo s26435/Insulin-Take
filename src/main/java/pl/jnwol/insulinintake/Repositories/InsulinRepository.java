@@ -14,14 +14,14 @@ public class InsulinRepository {
     public List<InsulinIntake>  insulinIntakes;
 
     public InsulinRepository(){
-        insulinIntakes = new ArrayList<InsulinIntake>();
+        insulinIntakes = new ArrayList<>();
     }
 
-    private int getNextId(){
+    public int getNextId(){
         int highest_id = 0;
-        for(int i = 0; i < insulinIntakes.size(); i++){
-            int temp = insulinIntakes.get(i).getId();
-            if(temp > highest_id){
+        for (InsulinIntake insulinIntake : insulinIntakes) {
+            int temp = insulinIntake.getId();
+            if (temp > highest_id) {
                 highest_id = temp;
             }
         }
@@ -42,14 +42,26 @@ public class InsulinRepository {
         }
     }
 
+    public void add(InsulinIntake insulinIntake) {
+        insulinIntakes.add(insulinIntake);
+    }
+
     public void addNewInsulinIntake(float amount){
+        if(amount<=0) throw new IllegalArgumentException("Amount must be greater than zero");
         LocalDateTime now = LocalDateTime.now();
         insulinIntakes.add(new InsulinIntake(getNextId(), amount, now.getDayOfMonth(), now.getMonthValue(), getDayTime(now.getHour())));
     }
 
     public Optional<InsulinIntake> findByID(int id) {
-        InsulinIntake insulinIntake = insulinIntakes.get(id);
-        if(insulinIntake!=null) return Optional.of(insulinIntake);
-        else return Optional.empty();
+        for(InsulinIntake insulinIntake : insulinIntakes) {
+            if(insulinIntake.getId() == id){
+                return Optional.of(insulinIntake);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public List<InsulinIntake> getAll() {
+        return insulinIntakes;
     }
 }
