@@ -20,4 +20,9 @@ public class ExceptionHandler {
     public ResponseEntity<Void> empty(){
         return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
     }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(value = {Exception.class})
+    public ResponseEntity<Void> exception(){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
 }
