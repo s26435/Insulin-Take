@@ -1,6 +1,7 @@
 package pl.jnwol.insulinintake.Repositories;
 
 import org.springframework.stereotype.Repository;
+import pl.jnwol.insulinintake.Exceptions.InsulinIntakeNotFoundException;
 import pl.jnwol.insulinintake.Model.InsulinIntake;
 import pl.jnwol.insulinintake.Model.day_time;
 
@@ -63,5 +64,13 @@ public class InsulinRepository {
 
     public List<InsulinIntake> getAll() {
         return insulinIntakes;
+    }
+
+    public void delete(int id){
+        insulinIntakes.removeIf(insulinIntake -> insulinIntake.getId() == id);
+    }
+
+    public void deleteLast() {
+        insulinIntakes.removeLast();
     }
 }

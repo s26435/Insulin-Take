@@ -71,4 +71,17 @@ public class InsulinIntakeController {
         intakeService.addNew(amount);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteInstulinIntake(@PathVariable int id){
+        intakeService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/delete/last")
+    public ResponseEntity<Void> deleteLastInstulinIntake(){
+        intakeService.deleteLast();
+        return ResponseEntity.ok().build();
+    }
+
 }

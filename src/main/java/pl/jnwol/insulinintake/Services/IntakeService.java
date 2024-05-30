@@ -38,4 +38,12 @@ public class IntakeService {
         if(insulinRepository.getAll().isEmpty()) throw new DataBaseIsEmpty();
         return ResponseEntity.ok(insulinRepository.getAll());
     }
+
+    public void delete(int id){
+        insulinRepository.delete(id);
+    }
+
+    public void deleteLast() {
+        insulinRepository.deleteLast();
+    }
 }
